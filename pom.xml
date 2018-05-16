@@ -38,11 +38,6 @@
             <version>${elasticsearch.version}</version>
             <scope>provided</scope>
         </dependency>
-        <dependency>
-			<groupId>com.google.collections</groupId>
-			<artifactId>google-collections</artifactId>
-			<version>1.0</version>
-		</dependency>
     </dependencies>
     
    <!-- needed for the snapshots of elasticsearch -->
