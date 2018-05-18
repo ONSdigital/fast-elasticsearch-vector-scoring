@@ -158,6 +158,7 @@ public final class VectorScoreScript implements LeafSearchScript, ExecutableScri
      */
     @Override
     public final Object run() {
+        double score = 0.0d;
         final int size = inputVector.length;
 
         final byte[] bytes = binaryEmbeddingReader.get(docId).bytes;
@@ -174,7 +175,6 @@ public final class VectorScoreScript implements LeafSearchScript, ExecutableScri
         doubleBuffer.get(docVector);
 
         double docVectorNorm = 0.0f;
-        double score = 0;
         for (int i = 0; i < size; i++) {
             // doc inputVector norm
             if(cosine) {
@@ -188,8 +188,11 @@ public final class VectorScoreScript implements LeafSearchScript, ExecutableScri
             if (docVectorNorm == 0 || magnitude == 0){
                 return 0f;
             } else {
-                return score / (Math.sqrt(docVectorNorm) * magnitude);
+                score = score / (Math.sqrt(docVectorNorm) * magnitude);
             }
+        }
+        if (Double.isNaN(score)) {
+            return 0.0d;
         } else {
             return score;
         }
