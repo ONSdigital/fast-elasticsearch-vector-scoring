@@ -1,3 +1,5 @@
+# Note: Please run mvn package before building image
+
 FROM elasticsearch:2.4.4
 
 COPY . /fast-elasticsearch-vector-scoring
